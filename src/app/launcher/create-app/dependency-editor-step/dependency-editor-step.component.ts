@@ -30,7 +30,7 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
     @Input() id: string;
 
     public github: string = '';
-    public boosterInfo: any = null;
+    public boosterInfo: any = {};
     private cacheInfo: any = {};
     private changes: any = {};
 
