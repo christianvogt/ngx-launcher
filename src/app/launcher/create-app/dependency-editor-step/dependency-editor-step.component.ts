@@ -8,12 +8,14 @@ import {
     OnDestroy,
     ViewEncapsulation
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
 
 import { DependencyEditorService } from '../../service/dependency-editor.service';
 import { DependencyCheckService } from '../../service/dependency-check.service';
 import { Selection } from '../../model/selection.model';
+// import { TargetEnvironment } from '../../model/target-environment.model';
+// import { TargetEnvironmentService } from '../../service/target-environment.service';
 import { LauncherComponent } from '../../launcher.component';
 import { LauncherStep } from '../../launcher-step';
 import { DependencyEditor } from '../../model/dependency-editor/dependency-editor.model';
@@ -36,16 +38,16 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
     private changes: any = {};
 
     private subscriptions: Subscription[] = [];
+    // private _targetEnvironments: TargetEnvironment[];
     constructor(
         @Host() public launcherComponent: LauncherComponent,
         private depEditorService: DependencyEditorService,
         private dependencyCheckService: DependencyCheckService,
+        public _DomSanitizer: DomSanitizer,
         private keyValueDiffers: KeyValueDiffers
     ) {
         super();
-        if (this.launcherComponent.summary) {
-            this.launcherComponent.summary['dependencyEditor'] = new DependencyEditor();
-        }
+        this.launcherComponent.summary.dependencyEditor = new DependencyEditor();
     }
 
     ngOnDestroy() {
@@ -54,7 +56,15 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
         });
     }
 
-
+    // getGithubInformation(missionId: string, runtimeId: string, version: string = 'redhat'): void {
+    //   this.depCheckService.getGithubInformation(
+    //     missionId,
+    //     runtimeId,
+    //     version
+    //   ).subscribe((result) => {
+    //     this.github = result && result.gitRepo;
+    //   });
+    // }
     ngOnInit() {
         this.changes = this.keyValueDiffers.find(this.launcherComponent.summary).create(null);
         this.launcherComponent.addStep(this);
@@ -86,7 +96,7 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
      * @returns {boolean} True if step is completed
      */
     get stepCompleted(): boolean {
-            return (this.launcherComponent.summary.dependencyEditor !== undefined);
+        return (this.launcherComponent.summary.dependencyEditor !== undefined);
     }
 
     /**
@@ -94,7 +104,9 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
      *
      * @returns {TargetEnvironment[]} The target environments to display
      */
-
+    // get targetEnvironments(): TargetEnvironment[] {
+    //   return this._targetEnvironments;
+    // }
     // Steps
     navToNextStep(): void {
         this.launcherComponent.navToNextStep();
@@ -126,9 +138,9 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
             this.launcherComponent.summary.dependencyCheck.projectVersion = event.version;
 
             // Update the dependency editor model
-            this.launcherComponent.summary.dependencyEditor['mavenArtifact'] = event.artifactId;
-            this.launcherComponent.summary.dependencyEditor['groupId'] = event.groupId;
-            this.launcherComponent.summary.dependencyEditor['projectVersion'] = event.version;
+            this.launcherComponent.summary.dependencyEditor.mavenArtifact = event.artifactId;
+            this.launcherComponent.summary.dependencyEditor.groupId = event.groupId;
+            this.launcherComponent.summary.dependencyEditor.projectVersion = event.version;
         }
         setTimeout(() => {
             this.initCompleted();
@@ -169,7 +181,6 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
 
         if (flag) {
             if (this.cacheInfo['mission'] && this.cacheInfo['runtime']) {
-                // this.cacheInfo = JSON.parse(this.cacheInfo);
                 let mission: string = this.cacheInfo['mission'].id;
                 let runtime: string = this.cacheInfo['runtime'].id;
                 let runtimeVersion: string = this.cacheInfo['runtime'].version;
