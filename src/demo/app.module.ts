@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DependencyEditorTokenProvider, URLProvider } from 'fabric8-analytics-dep-editor';
-
 // App components
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -84,8 +82,7 @@ import {
     { provide: FABRIC8_ORIGIN, useValue: 'osio' },
     { provide: TokenProvider, useClass: MockAuthenticationService },
     { provide: TokenService, useClass: DemoTokenService},
-    { provide: DependencyEditorTokenProvider, useExisting: TokenProvider },
-    { provide: URLProvider, useClass: AnalyticsUrlService }
+    AnalyticsUrlService
   ],
   bootstrap: [AppComponent]
 })

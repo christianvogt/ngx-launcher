@@ -1,4 +1,3 @@
-import { DependencyEditorTokenProvider, URLProvider } from 'fabric8-analytics-dep-editor';
 
 export { SpinnerComponent } from './src/app/components/spinner/spinner.component';
 export { PipelineViewComponent } from './src/app/components/pipeline-view/pipeline-view.component';
@@ -43,7 +42,3 @@ export { TokenService } from './src/app/launcher/service/token.service';
 // Utility Service
 export { AuthHelperService } from './src/app/launcher/service/auth-provider.service';
 export { HelperService } from './src/app/launcher/service/helper.service';
-
-// Imported from Dependency Editor
-export { URLProvider };
-export { DependencyEditorTokenProvider };
