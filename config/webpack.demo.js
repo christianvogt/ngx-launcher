@@ -7,11 +7,9 @@ const path = require('path');
  */
 
 const OSIO_AUTH_TOKEN = process.env.OSIO_AUTH_TOKEN;
-const STACK_API_TOKEN = process.env.STACK_API_TOKEN;
 
 const METADATA = {
-  OSIO_AUTH_TOKEN: OSIO_AUTH_TOKEN,
-  STACK_API_TOKEN: STACK_API_TOKEN
+  OSIO_AUTH_TOKEN: OSIO_AUTH_TOKEN
 };
 
 /**
@@ -220,10 +218,10 @@ module.exports = {
      *
      * See: https://www.npmjs.com/package/@ngtools/webpack
      */
-    // new AotPlugin({
-    //   entryModule: helpers.root('src/demo/app.module.ts#AppModule'),
-    //   tsConfigPath: helpers.root('tsconfig-aot.json')
-    // }),
+    new AotPlugin({
+      entryModule: helpers.root('src/demo/app.module.ts#AppModule'),
+      tsConfigPath: helpers.root('tsconfig-aot.json')
+    }),
 
     /**
      * Plugin: copy-webpack-plugin
