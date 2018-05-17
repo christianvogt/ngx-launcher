@@ -30,7 +30,6 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
     @Input() id: string;
 
     public github: string = '';
-    public gitref: string = '';
     public boosterInfo: any = null;
     private cacheInfo: any = {};
     private changes: any = {};
@@ -180,10 +179,8 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
                 let service = this.depEditorService.getBoosterInfo(mission, runtime);
                 if (service) {
                     service.subscribe((response: any) => {
-                        if (response && response.gitRepo && response.gitRef) {
+                        if (response && response.gitRepo) {
                             this.github = response.gitRepo;
-                            this.gitref = response.gitRef;
-                            console.log('response mission runtime', response, this.gitref);
                         }
                     });
                 }
