@@ -99,9 +99,7 @@ let mockWizardComponent: TypeWizardComponent = {
       platform: (summaryVar.runtime !== undefined) ? summaryVar.runtime.pipelinePlatform : 'maven',
       spacePath: (summaryVar.dependencyCheck !== undefined)
         ? summaryVar.dependencyCheck.spacePath : undefined,
-      targetEnvironment: summaryVar.targetEnvironment,
-      dependencyCheck: (summaryVar.dependencyCheck !== undefined) ? summaryVar.dependencyCheck : undefined,
-      dependencyEditor: (summaryVar.dependencyEditor !== undefined) ? summaryVar.dependencyEditor : undefined
+      targetEnvironment: summaryVar.targetEnvironment
     } as Selection;
   },
   onInViewportChange($event: any, id: string) {
