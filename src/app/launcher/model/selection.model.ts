@@ -1,6 +1,5 @@
 import { Cluster } from './cluster.model';
 import { DependencyCheck } from './dependency-check.model';
-import { DependencyEditor } from './dependency-editor/dependency-editor.model';
 export class Selection {
   groupId?: string;
   missionId?: string;
@@ -16,5 +15,4 @@ export class Selection {
   targetEnvironment?: string;
   cluster?: Cluster;
   dependencyCheck: DependencyCheck;
-  dependencyEditor: DependencyEditor;
 }
