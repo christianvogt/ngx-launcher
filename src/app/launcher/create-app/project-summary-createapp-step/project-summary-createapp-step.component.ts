@@ -28,7 +28,6 @@ import { Summary } from '../../model/summary.model';
 })
 export class ProjectSummaryCreateappStepComponent extends LauncherStep implements OnDestroy, OnInit {
   @Input() id: string;
-  @Input() depEditorFlag: boolean;
 
   private subscriptions: Subscription[] = [];
   private spaceId: string;
