@@ -6,8 +6,7 @@ import {
     KeyValueDiffers,
     OnInit,
     OnDestroy,
-    ViewEncapsulation,
-    Optional
+    ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
@@ -39,7 +38,7 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
     private subscriptions: Subscription[] = [];
     constructor(
         @Host() public launcherComponent: LauncherComponent,
-        @Optional() private depEditorService: DependencyEditorService,
+        private depEditorService: DependencyEditorService,
         private dependencyCheckService: DependencyCheckService,
         private keyValueDiffers: KeyValueDiffers
     ) {
@@ -95,6 +94,7 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
      *
      * @returns {TargetEnvironment[]} The target environments to display
      */
+
     // Steps
     navToNextStep(): void {
         this.launcherComponent.navToNextStep();
@@ -174,16 +174,14 @@ export class DependencyEditorCreateappStepComponent extends LauncherStep impleme
                 let runtime: string = this.cacheInfo['runtime'].id;
                 let runtimeVersion: string = this.cacheInfo['runtime'].version;
                 this.boosterInfo = this.cacheInfo;
-                if ( this.depEditorService) {
-                    let service = this.depEditorService.getBoosterInfo(mission, runtime, runtimeVersion);
-                    if (service) {
-                        service.subscribe((response: any) => {
-                            if (response && response.gitRepo && response.gitRef) {
-                                this.github = response.gitRepo;
-                                this.gitref = response.gitRef;
-                            }
-                        });
-                    }
+                let service = this.depEditorService.getBoosterInfo(mission, runtime, runtimeVersion);
+                if (service) {
+                    service.subscribe((response: any) => {
+                        if (response && response.gitRepo && response.gitRef) {
+                            this.github = response.gitRepo;
+                            this.gitref = response.gitRef;
+                        }
+                    });
                 }
             }
         }
